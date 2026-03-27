@@ -10,7 +10,7 @@ def run_purge():
         print("Login failed.")
         return
 
-    page = pywikibot.Page(site, "User:TRCoolDragon675")
+    page = pywikibot.Page(site, "Main Page")
     if page.purge(forcelinkupdate=True):
         print("Success: Page purged.")
     else:
