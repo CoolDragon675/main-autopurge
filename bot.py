@@ -11,14 +11,15 @@ def run_purge():
     manager = ClientLoginManager(site=site, user=username, password=password)
     
     if manager.login():
+        site.login() 
         print(f"Logged in successfully as {username}")
     else:
         print("Login failed.")
         return
 
     page = pywikibot.Page(site, "Main Page")
-    
-    if page.purge():
+
+    if page.purge(forcelinkupdate=True):
         print("Success: Page purged.")
     else:
         print("Failure: Purge failed.")
