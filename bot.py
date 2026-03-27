@@ -18,25 +18,25 @@ def run_purge():
         print("Error: Server rejected login. Still acting as IP.")
         return
     
-    print(f"Logged in as: {site.user()}")
-
-    page = pywikibot.Page(site, "User:TRCoolDragon675")
+    print(f"Logged in successfully as: {site.user()}")
+    
+    page_title = "Main Page"
     
     params = {
         'action': 'purge',
-        'titles': page.title(),
-        'forcelinkupdate': True
+        'titles': page_title,
+        'forcelinkupdate': True  # This forces Lua/Templates to re-calculate
     }
     
     request = api.Request(site=site, parameters=params)
     try:
         data = request.submit()
         if 'purge' in data:
-            print("Success: Page purged via API with active session.")
+            print(f"Success: Hard Purge completed for '{page_title}'.")
         else:
             print(f"Failure: Unexpected API response: {data}")
     except Exception as e:
-        print(f"API Error: {e}")
+        print(f"API Error during purge: {e}")
 
 if __name__ == "__main__":
     run_purge()
