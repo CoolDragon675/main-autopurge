@@ -22,7 +22,6 @@ jobs:
 
       - name: Run Bot
         env:
-          RAW_PASS: ${{ secrets.BOT_PASSWORD }}
-        run: |
-          echo "('TRCDBot', '$RAW_PASS')" > passwordfile
-          python bot.py
+          # This must match the os.environ.get() name in bot.py
+          PYWIKIBOT_PASSWORD: ${{ secrets.BOT_PASSWORD }}
+        run: python bot.py
