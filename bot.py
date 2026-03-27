@@ -20,7 +20,7 @@ def run_purge():
     
     print(f"Logged in successfully as: {site.user()}")
     
-    page_title = "Main Page"
+    page_title = "User:TRCoolDragon675"
     
     params = {
         'action': 'purge',
