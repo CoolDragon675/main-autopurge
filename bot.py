@@ -4,19 +4,15 @@ import os
 def run_purge():
     site = pywikibot.Site('industrialist', 'miraheze')
     
-    password = os.environ.get('PYWIKIBOT_PASSWORD')
-    username = 'TRCDBot@TRCDBot_AutoPurge'
-    
-    site.login(user=username, password=password)
-    
+    site.login()
+
     if not site.logged_in():
-        print("Error: Login failed, still acting as IP.")
+        print("Error: Still not logged in.")
         return
 
-    # 3. Purge the page
     page = pywikibot.Page(site, "Main Page")
     if page.purge():
-        print("Success: Page purged as logged-in user.")
+        print("Success: Purged.")
     else:
         print("Failure: Purge failed.")
 
