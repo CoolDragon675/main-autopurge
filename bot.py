@@ -1,28 +1,23 @@
 import pywikibot
 import os
-from pywikibot.login import ClientLoginManager
 
 def run_purge():
     site = pywikibot.Site('industrialist', 'miraheze')
     
-    password = os.environ.get('PYWIKIBOT_PASSWORD')
-    username = 'TRCDBot@TRCDBot_AutoPurge'
-    
-    manager = ClientLoginManager(site=site, user=username, password=password)
-    
-    if manager.login():
-        site.login() 
-        print(f"Logged in successfully as {username}")
-    else:
-        print("Login failed.")
+    # Trigger login
+    site.login()
+
+    # SAFETY CHECK: If this returns False, the bot isn't logged in
+    if not site.logged_in():
+        print("CRITICAL ERROR: Login failed. The bot is still an anonymous IP.")
         return
 
+    # Only if logged in, try the purge
     page = pywikibot.Page(site, "Main Page")
-
-    if page.purge(forcelinkupdate=True):
-        print("Success: Page purged.")
+    if page.purge():
+        print("Success: Purged as logged-in user.")
     else:
-        print("Failure: Purge failed.")
+        print("Failure: Purge rejected.")
 
 if __name__ == "__main__":
     run_purge()
