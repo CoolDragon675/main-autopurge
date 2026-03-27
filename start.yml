@@ -1,0 +1,26 @@
+name: Wiki Auto-Purge Engine
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch: 
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Install Pywikibot
+        run: pip install pywikibot
+
+      - name: Execute Bot
+        env:
+          PYWIKIBOT_PASSWORD: ${{ secrets.BOT_PASSWORD }}
+        run: python bot.py
