@@ -22,6 +22,8 @@ jobs:
 
       - name: Run Bot
         env:
-          # This must match the os.environ.get() name in bot.py
-          PYWIKIBOT_PASSWORD: ${{ secrets.BOT_PASSWORD }}
-        run: python bot.py
+          RAW_PASS: ${{ secrets.BOT_PASSWORD }}
+        run: |
+          echo "('TRCDBot', BotPassword('TRCDBot_AutoPurge', '$RAW_PASS'))" > passwordfile
+          chmod 600 passwordfile
+          python bot.py
