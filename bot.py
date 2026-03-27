@@ -20,7 +20,7 @@ def run_purge():
     
     print(f"Logged in as: {site.user()}")
 
-    page = pywikibot.Page(site, "Main Page")
+    page = pywikibot.Page(site, "User:TRCoolDragon675")
     
     params = {
         'action': 'purge',
