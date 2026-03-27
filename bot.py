@@ -1,5 +1,6 @@
 import pywikibot
 import os
+from pywikibot.login import ClientLoginManager
 from pywikibot.data import api
 
 def run_purge():
@@ -8,24 +9,24 @@ def run_purge():
     username = 'TRCDBot@TRCDBot_AutoPurge'
     password = os.environ.get('PYWIKIBOT_PASSWORD')
 
+    manager = ClientLoginManager(site=site, user=username, password=password)
+    
     try:
-        site.login(user=username, password=password)
+        if manager.login():
+            site.login() 
+            print(f"Logged in successfully as {username}")
+        else:
+            print("Login failed: Incorrect credentials.")
+            return
     except Exception as e:
-        print(f"Login failed: {e}")
+        print(f"Login error: {e}")
         return
 
-    if not site.logged_in():
-        print("Error: Server rejected login. Still acting as IP.")
-        return
-    
-    print(f"Logged in successfully as: {site.user()}")
-    
-    page_title = "User:TRCoolDragon675"
-    
+    page_title = "Main Page"
     params = {
         'action': 'purge',
         'titles': page_title,
-        'forcelinkupdate': True  # This forces Lua/Templates to re-calculate
+        'forcelinkupdate': True
     }
     
     request = api.Request(site=site, parameters=params)
