@@ -22,10 +22,7 @@ jobs:
 
       - name: Run Bot
         env:
-          # Use your secret here
           RAW_PASS: ${{ secrets.BOT_PASSWORD }}
         run: |
-          # Create the password file Pywikibot requires
-          # Format: (u'Username', u'Password')
           echo "('TRCDBot@TRCDBot_AutoPurge', '$RAW_PASS')" > passwordfile
           python bot.py
