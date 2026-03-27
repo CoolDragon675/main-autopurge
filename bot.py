@@ -3,11 +3,11 @@ import os
 from pywikibot.login import ClientLoginManager
 
 def run_purge():
-    site = pywikibot.Site('miraheze', 'miraheze')
-    
+    site = pywikibot.Site('industrialist', 'miraheze')
     password = os.environ.get('PYWIKIBOT_PASSWORD')
     
-    manager = ClientLoginManager(site=site, user='TRCDBot', password=password)
+    # Use the full Account@BotName string here as well
+    manager = ClientLoginManager(site=site, user='TRCDBot@TRCDBot_AutoPurge', password=password)
     manager.login()
 
     page = pywikibot.Page(site, "Main Page")
