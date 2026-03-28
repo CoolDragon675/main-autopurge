@@ -2,8 +2,8 @@ name: Wiki Auto-Purge Engine
 
 on:
   schedule:
-    - cron: '0 0 * * *'   # Attempt 1
-    - cron: '25 0 * * *'  # Attempt 2 (Backup)
+    - cron: '0 0 * * *'   # Attempt 1 (Midnight UTC)
+    - cron: '25 0 * * *'  # Attempt 2 (Backup/Safety Net)
   workflow_dispatch:      # Manual trigger button
 
 jobs:
@@ -21,10 +21,13 @@ jobs:
       - name: Install Pywikibot
         run: pip install pywikibot
 
-      - name: Run Bot
-        env:
-          RAW_PASS: ${{ secrets.BOT_PASSWORD }}
-        run: |
-          echo "('TRCDBot', BotPassword('TRCDBot_AutoPurge', '$RAW_PASS'))" > passwordfile
-          chmod 600 passwordfile
-          python bot.py
+      - name: Run Bot with Auto-Retry
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 5    # Stop if it takes longer than 5 mins
+          max_attempts: 3       # Try up to 3 times if it fails
+          retry_on: error       # Retry if the python command exits with an error
+          command: |
+            echo "('TRCDBot', BotPassword('TRCDBot_AutoPurge', '${{ secrets.BOT_PASSWORD }}'))" > passwordfile
+            chmod 600 passwordfile
+            python bot.py
