@@ -1,5 +1,8 @@
 name: Wiki Auto-Purge Engine
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 concurrency:
   group: wiki-bot-group
   cancel-in-progress: false
@@ -18,19 +21,15 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
-          python-version: '3.9'
+          python-version: '3.12'
 
-      - name: Install Pywikibot
-        run: pip install pywikibot
+      - run: pip install pywikibot
 
-      - name: Run Bot with Auto-Retry
-        uses: nick-fields/retry@v3
+      - uses: nick-fields/retry@v4
         with:
           timeout_minutes: 5
           max_attempts: 3
@@ -40,8 +39,7 @@ jobs:
             chmod 600 passwordfile
             python bot.py
 
-      - name: Save Report
-        run: |
+      - run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add lastSuccess.txt
