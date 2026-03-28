@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '0 0 * * *'    # 1st Attempt: Midnight UTC
     - cron: '17 0 * * *'   # 2nd Attempt: 17-minute offset for reliability
-    - cron: '37 0 * * *'   # 3rd Attempt: 37-minute offset safety net
+    - cron: '27 0 * * *'   # 3rd Attempt: 27-minute offset safety net
   workflow_dispatch:       # Manual trigger button
 
 jobs:
