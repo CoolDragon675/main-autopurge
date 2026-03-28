@@ -1,20 +1,22 @@
 name: Wiki Auto-Purge Engine
 
 concurrency:
-  group: group
+  group: wiki-bot-group
   cancel-in-progress: false
 
 on:
   schedule:
-    - cron: '0 0 * * *'    # 1st Attempt: Midnight UTC
-    - cron: '17 0 * * *'   # 2nd Attempt: Safety-net #1
-    - cron: '34 0 * * *'   # 3rd Attempt: Safety-net #2
-  workflow_dispatch:       # Manual trigger button
+    - cron: '0 0 * * *'
+    - cron: '17 0 * * *'
+    - cron: '34 0 * * *'
+  workflow_dispatch:
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
-    timeout-minutes: 18
+    timeout-minutes: 20
+    permissions:
+      contents: write
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -30,10 +32,18 @@ jobs:
       - name: Run Bot with Auto-Retry
         uses: nick-fields/retry@v3
         with:
-          timeout_minutes: 5    # Stop if the script hangs
-          max_attempts: 3      # If Miraheze API lags, retry up to 3 times
+          timeout_minutes: 5
+          max_attempts: 3
           retry_on: error
           command: |
             echo "('TRCDBot', BotPassword('TRCDBot_AutoPurge', '${{ secrets.BOT_PASSWORD }}'))" > passwordfile
             chmod 600 passwordfile
             python bot.py
+
+      - name: Save Report
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add lastSuccess.txt
+          git commit -m "Update lastSuccess for $(date +%Y-%m-%d) [skip ci]" || echo "No changes"
+          git push
