@@ -7,7 +7,7 @@ def run_purge():
     now_utc = datetime.now(timezone.utc)
     today_utc = now_utc.strftime("%Y-%m-%d")
     now_hkt = now_utc + timedelta(hours=8)
-    time_str = f"{now_utc.strftime('%Y-%m-%d, %H:%M')}/{now_hkt.strftime('%H:%M')} UTC+8"
+    time_str = f"{now_hkt.strftime('%Y-%m-%d, %H:%M')} UTC+8"
 
     if os.path.exists(log_file):
         with open(log_file, "r") as f:
