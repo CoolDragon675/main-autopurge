@@ -1,8 +1,21 @@
 import pywikibot
+import os
+from datetime import datetime, timedelta, timezone
 
 def run_purge():
-    # Pywikibot will now automatically find the username and 
-    # password from user-config.py and passwordfile
+    log_file = "lastSuccess.txt"
+    now_utc = datetime.now(timezone.utc)
+    today_utc = now_utc.strftime("%Y-%m-%d")
+    now_hkt = now_utc + timedelta(hours=8)
+    time_str = f"{now_utc.strftime('%Y-%m-%d, %H:%M')}/{now_hkt.strftime('%H:%M')} UTC+8"
+
+    if os.path.exists(log_file):
+        with open(log_file, "r") as f:
+            content = f.read()
+            if today_utc in content:
+                print(f"Skipping: Already succeeded on {today_utc}.")
+                return
+
     site = pywikibot.Site('industrialist', 'miraheze')
     site.login()
 
@@ -11,10 +24,14 @@ def run_purge():
         return
 
     page = pywikibot.Page(site, "Main Page")
+    
     if page.purge(forcelinkupdate=True):
-        print("Success: Page purged.")
+        print(f"Success: Page purged at {time_str}")
+        with open(log_file, "w") as f:
+            f.write(f"Last purge attempt succeeded at {time_str}")
     else:
         print("Failure: Purge failed.")
+        exit(1)
 
 if __name__ == "__main__":
     run_purge()
