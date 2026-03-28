@@ -1,15 +1,20 @@
 name: Wiki Auto-Purge Engine
 
+concurrency:
+  group: group
+  cancel-in-progress: false
+
 on:
   schedule:
     - cron: '0 0 * * *'    # 1st Attempt: Midnight UTC
-    - cron: '12 0 * * *'   # 2nd Attempt: 17-minute offset for reliability
-    - cron: '24 0 * * *'   # 3rd Attempt: 27-minute offset safety net
+    - cron: '17 0 * * *'   # 2nd Attempt: Safety-net #1
+    - cron: '34 0 * * *'   # 3rd Attempt: Safety-net #2
   workflow_dispatch:       # Manual trigger button
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
+    timeout-minutes: 18
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
