@@ -3,8 +3,8 @@ name: Wiki Auto-Purge Engine
 on:
   schedule:
     - cron: '0 0 * * *'    # 1st Attempt: Midnight UTC
-    - cron: '13 0 * * *'   # 2nd Attempt: 17-minute offset for reliability
-    - cron: '26 0 * * *'   # 3rd Attempt: 27-minute offset safety net
+    - cron: '12 0 * * *'   # 2nd Attempt: 17-minute offset for reliability
+    - cron: '24 0 * * *'   # 3rd Attempt: 27-minute offset safety net
   workflow_dispatch:       # Manual trigger button
 
 jobs:
@@ -26,7 +26,7 @@ jobs:
         uses: nick-fields/retry@v3
         with:
           timeout_minutes: 5    # Stop if the script hangs
-          max_attempts: 2      # If Miraheze API lags, retry up to 3 times
+          max_attempts: 3      # If Miraheze API lags, retry up to 3 times
           retry_on: error
           command: |
             echo "('TRCDBot', BotPassword('TRCDBot_AutoPurge', '${{ secrets.BOT_PASSWORD }}'))" > passwordfile
