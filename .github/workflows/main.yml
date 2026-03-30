@@ -1,6 +1,6 @@
 name: Purge Main Page
 
-concurrency:
+concurrency: 
   group: wiki-bot-group
   cancel-in-progress: false
 
