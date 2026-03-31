@@ -9,7 +9,6 @@ on:
     - cron: '0 0 * * *' #Main Attempt
     - cron: '17 0 * * *' #Safety-net #1
     - cron: '34 0 * * *' #Safety-net #2 
-    - cron: '17 1 * * *' #Safety-net #3
   workflow_dispatch:
 
 jobs:
