@@ -19,10 +19,10 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checkout Code
+      - name: Load Scripts
         uses: actions/checkout@v5
 
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v6
         with:
           python-version: '3.12'
@@ -30,7 +30,7 @@ jobs:
       - name: Install Pywikibot
         run: pip install pywikibot
 
-      - name: Run Bot with Auto-Retry
+      - name: Run Bot
         uses: nick-fields/retry@v4
         with:
           timeout_minutes: 5
