@@ -45,7 +45,7 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@://github.com"
-                    git config set advice.skippedCherryPicks false
+          git config set advice.skippedCherryPicks false
           git add lastSuccess.txt
           git commit -m "Update lastSuccess for $(date +%Y-%m-%d) [skip ci]" || exit 0
           git pull --rebase -X ours origin main
