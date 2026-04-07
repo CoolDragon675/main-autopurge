@@ -44,9 +44,8 @@ jobs:
       - name: Save Report
         run: |
           git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.email "github-actions[bot]@://github.com"
           git add lastSuccess.txt
-          git commit -m "Update lastSuccess for $(date +%Y-%m-%d) [skip ci]" || echo "No changes"
-          git pull --rebase origin main
+          git commit -m "Update lastSuccess for $(date +%Y-%m-%d) [skip ci]" || exit 0
+          git pull --rebase -X ours origin main
           git push origin main
-
