@@ -2,14 +2,13 @@ name: Purge Main Page
 
 concurrency: 
   group: wiki-bot-group
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 on:
   schedule:
     - cron: '0 0 * * *' #Main Attempt
     - cron: '17 0 * * *' #Safety-net #1
-    - cron: '34 0 * * *' #Safety-net #2 
-    - cron: '0 * * * *' #Safety-net #3
+    - cron: '34 0 * * *' #Safety-net #2
   workflow_dispatch:
 
 jobs:
