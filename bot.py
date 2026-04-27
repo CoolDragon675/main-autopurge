@@ -1,26 +1,6 @@
 import pywikibot
-import os, sys, time
+import os, sys
 from datetime import datetime, timedelta, timezone
-
-def precision_warmup():
-  now = datetime.now(timezone.utc)
-  
-  if now.hour >= 22:
-    target = (now + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
-    
-    print("::group::Warm-up period (Waiting for Midnight)")
-    print(f"Runner started at: {now.strftime('%H:%M:%S')} UTC")
-    
-    while datetime.now(timezone.utc) < target:
-      print(f"Heartbeat: {datetime.now(timezone.utc).strftime('%H:%M:%S')} - Active.")
-      sys.stdout.flush()
-      time.sleep(300) 
-      
-    print("::endgroup::")
-    print("Midnight reached! Proceeding to purge logic...")
-    
-  else:
-    print(f"Started at {now.strftime('%H:%M:%S')} UTC. No wait required.")
 
 def run_purge():
   log_file = "lastSuccess.txt"
@@ -41,7 +21,7 @@ def run_purge():
 
   if not site.logged_in():
     print("Login failed.")
-    return
+    sys.exit(1)
 
   page = pywikibot.Page(site, "Main Page")
   
@@ -54,5 +34,4 @@ def run_purge():
     sys.exit(1)
 
 if __name__ == "__main__":
-  precision_warmup()
   run_purge()
