@@ -5,8 +5,8 @@ concurrency:
   cancel-in-progress: true
 
 on:
-  schedule:
-    - cron: '47 22 * * *'
+  repository_dispatch:
+    types: [fire]
   workflow_dispatch:
 
 jobs:
