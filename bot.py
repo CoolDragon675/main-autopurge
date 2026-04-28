@@ -15,7 +15,7 @@ def run_purge():
     with open(log_file, "r") as f:
       content = f.read()
       if hash_id in content:
-        print(f"Skipping: Succeeded on {today_str}.")
+        print(f"Skipping: Succeeded on {today_utc}.")
         return
 
   site = pywikibot.Site('industrialist', 'miraheze')
