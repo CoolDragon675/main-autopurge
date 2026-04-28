@@ -4,16 +4,18 @@ from datetime import datetime, timedelta, timezone
 
 def run_purge():
   log_file = "lastSuccess.txt"
-  now_utc = datetime.now(timezone.utc)
-  today_utc = now_utc.strftime("%Y-%m-%d")
-  now_hkt = now_utc + timedelta(hours=8)
-  time_str = f"{now_hkt.strftime('%Y-%m-%d, %H:%M:%S')} UTC+8"
+  utc = datetime.now(timezone.utc)
+  today_utc = utc.strftime("%Y%m%d")
+  today_hash = hashlib.md5(today_utc.encode()).hexdigest()
+  hash_id = f"{int(today_hash[:8], 16)}"
+  hkt = utc + timedelta(hours=8)
+  time_str = f"{hkt.strftime('%Y-%m-%d, %H:%M:%S')} UTC+8"
 
   if os.path.exists(log_file):
     with open(log_file, "r") as f:
       content = f.read()
-      if today_utc in content:
-        print(f"Skipping: Already succeeded on {today_utc}.")
+      if hash_id in content:
+        print(f"Skipping: Succeeded on {today_str}.")
         return
 
   site = pywikibot.Site('industrialist', 'miraheze')
@@ -28,7 +30,7 @@ def run_purge():
   if page.purge(forcelinkupdate=True):
     print(f"Success: Page purged at {time_str}")
     with open(log_file, "w") as f:
-      f.write(f"{today_utc}: Last purge attempt succeeded at {time_str}")
+      f.write(f"Success: Page purged at {time_str}\nHash ID: {hash_id}")
   else:
     print("Failure: Purge failed.")
     sys.exit(1)
