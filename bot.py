@@ -1,5 +1,5 @@
 import pywikibot
-import os, sys
+import os, sys, hashlib
 from datetime import datetime, timedelta, timezone
 
 def run_purge():
