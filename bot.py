@@ -5,8 +5,8 @@ from datetime import datetime, timedelta, timezone
 def run_purge():
   log_file = "lastSuccess.txt"
   utc = datetime.now(timezone.utc)
-  today_utc = utc.strftime("%Y%m%d")
-  today_hash = hashlib.md5(today_utc.encode()).hexdigest()
+  today_utc = utc.strftime("%Y-%m-%d")
+  today_hash = hashlib.md5(today_utc.replace("-", "").encode()).hexdigest()
   hash_id = f"{int(today_hash[:8], 16)}"
   hkt = utc + timedelta(hours=8)
   time_str = f"{hkt.strftime('%Y-%m-%d, %H:%M:%S')} UTC+8"
