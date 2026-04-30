@@ -3,7 +3,7 @@ import os, sys, hashlib
 from datetime import datetime, timedelta, timezone
 
 def run_purge():
-  log_file = "$-purge.log"
+  log_file = "$purge.log"
   utc = datetime.now(timezone.utc)
   today_utc = utc.strftime("%Y-%m-%d")
   today_hash = hashlib.md5(today_utc.replace("-", "").encode()).hexdigest()
