@@ -30,7 +30,7 @@ def run_purge():
   if page.purge(forcelinkupdate=True):
     print(f"Success: Page purged at {time_str}")
     with open(log_file, "w") as f:
-      f.write(f"Last success: {time_str}\nHash ID: {hash_id}")
+      f.write(f"Last success:  \n{time_str}\nHash ID:  \n{hash_id}")
   else:
     print("Failure: Purge failed.")
     sys.exit(1)
