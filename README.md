@@ -1,5 +1,13 @@
 Copyright: **`CC BY-NC-SA 4.0`**
 
+## YOU ARE FREE TO:
+
+Share — copy and redistribute the material in any medium or format
+Adapt — remix, transform, and build upon the material
+The licensor cannot revoke these freedoms as long as you follow the license terms.
+
+## UNDER THE FOLLOWING TERMS:
+
 Attribution (**`BY`**) -  
 You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
 
