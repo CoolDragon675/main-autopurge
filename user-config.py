@@ -1,3 +1,3 @@
 usernames = {}; usernames['miraheze'] = {}
-usernames['miraheze']['*'] = 'TRCDBot'
+usernames['miraheze']['industrialist'] = 'TRCDBot'
 password_file = 'passwordfile'
