@@ -1,7 +1,3 @@
-family_files = {}
-
-family = 'miraheze'
-mylang = 'industrialist'
-family_files['miraheze'] = 'https://industrialist.miraheze.org'
-usernames['miraheze']['industrialist'] = 'TRCDBot'
+usernames = {}; usernames['miraheze'] = {}
+usernames['miraheze']['*'] = 'TRCDBot'
 password_file = 'passwordfile'
