@@ -18,7 +18,7 @@ def run_purge():
         print(f"Skipping: Succeeded on {today_utc}.")
         return
 
-  site = pywikibot.Site.from_url('https://industrialist.miraheze.org/w/api.php', name='miraheze')
+  site = pywikibot.Site('industrialist', 'miraheze')
   site.login()
 
   if not site.logged_in():
