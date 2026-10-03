@@ -25,7 +25,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install Pywikibot
-        run: pip install pywikibot
+        run: pip install pywikibot==11.4.0
 
       - name: Run Bot
         uses: nick-fields/retry@v4
