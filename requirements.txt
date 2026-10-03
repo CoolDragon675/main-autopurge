@@ -1,1 +1,1 @@
-pywikibot
+pywikibot==11.4.0
