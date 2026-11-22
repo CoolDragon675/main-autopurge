@@ -2,7 +2,7 @@ import pywikibot
 import os, sys, hashlib
 from datetime import datetime, timedelta, timezone
 import requests
-print(requests.get("https://miraheze.org"))
+print(f"hello {requests.get("https://miraheze.org")}")
 print("Loaded family_files:", pywikibot.config.family_files.get('miraheze'))
 
 def run_purge():
