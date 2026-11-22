@@ -36,7 +36,9 @@ jobs:
           command: |
             echo "('TRCDBot', BotPassword('TRCDBot_AutoPurge', '${{ secrets.BOT_PASSWORD }}'))" > passwordfile
             chmod 600 passwordfile
-            python bot.py -debug:api
+            python bot.py
+            
+
 
       - name: Save Report
         run: |
