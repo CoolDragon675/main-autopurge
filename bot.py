@@ -1,4 +1,4 @@
-import requests
+import sys, requests
 
 ip = requests.get("https://ipify.org").text
 r = requests.get(
@@ -8,7 +8,7 @@ r = requests.get(
 )
 print("GitHub Runner IP:", ip)
 print("Status:", r.status_code, "| Server:", r.headers.get("server"), "| CF-Ray:", r.headers.get("cf-ray"))
-
+sys.exit(1)
 
 import pywikibot
 import os, sys, hashlib
