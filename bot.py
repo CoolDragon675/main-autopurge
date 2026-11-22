@@ -2,7 +2,6 @@ import pywikibot
 import os, sys, hashlib
 from datetime import datetime, timedelta, timezone
 
-import requests
 def run_purge():
   log_file = "$purge.md"
   utc = datetime.now(timezone.utc)
