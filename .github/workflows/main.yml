@@ -11,7 +11,7 @@ on:
 
 jobs:
   run-bot:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     timeout-minutes: 15
     permissions:
       contents: write
