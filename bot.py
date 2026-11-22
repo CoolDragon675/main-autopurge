@@ -19,6 +19,7 @@ def run_purge():
         return
 
   site = pywikibot.Site('industrialist', 'miraheze')
+  print(site)
   site.login()
 
   if not site.logged_in():
