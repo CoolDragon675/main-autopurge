@@ -1,3 +1,15 @@
+import requests
+
+ip = requests.get("https://ipify.org").text
+r = requests.get(
+    "https://miraheze.org",
+    params={"action": "query", "meta": "siteinfo", "format": "json"},
+    headers={"User-Agent": "TRCDBot/1.0 (https://miraheze.org)"},
+)
+print("GitHub Runner IP:", ip)
+print("Status:", r.status_code, "| Server:", r.headers.get("server"), "| CF-Ray:", r.headers.get("cf-ray"))
+
+
 import pywikibot
 import os, sys, hashlib
 from datetime import datetime, timedelta, timezone
