@@ -1,6 +1,8 @@
 import pywikibot
 import os, sys, hashlib
 from datetime import datetime, timedelta, timezone
+import requests
+print(requests.get("https://miraheze.org"))
 
 def run_purge():
   log_file = "$purge.md"
