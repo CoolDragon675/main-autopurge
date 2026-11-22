@@ -1,22 +1,8 @@
-import sys, requests
-
-ip = requests.get("https://ipify.org").text
-r = requests.get(
-    "https://miraheze.org",
-    params={"action": "query", "meta": "siteinfo", "format": "json"},
-    headers={"User-Agent": "TRCDBot/1.0 (https://miraheze.org)"},
-)
-print("GitHub Runner IP:", ip)
-print("Status:", r.status_code, "| Server:", r.headers.get("server"), "| CF-Ray:", r.headers.get("cf-ray"))
-sys.exit(1)
-
 import pywikibot
 import os, sys, hashlib
 from datetime import datetime, timedelta, timezone
-import requests
-print(f"hello {requests.get("https://miraheze.org")}")
-print("Loaded family_files:", pywikibot.config.family_files.get('miraheze'))
 
+import requests
 def run_purge():
   log_file = "$purge.md"
   utc = datetime.now(timezone.utc)
